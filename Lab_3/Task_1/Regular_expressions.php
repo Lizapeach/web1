@@ -9,3 +9,11 @@ foreach($matches[0] as $math){
 }
 
 //Task_b
+function cubingNumbers($matches): string
+{
+    return pow($matches[0], 3);
+}
+$str = 'a1b2c3';
+$regexp = '/[0-9]/u';
+$strWithCubingNumbers = preg_replace_callback($regexp, 'CubingNumbers', $str);
+echo "<br>Строка с числами в кубе:$strWithCubingNumbers";
