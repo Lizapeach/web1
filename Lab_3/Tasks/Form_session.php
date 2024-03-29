@@ -2,11 +2,11 @@
 session_start();
 
 if(isset($_POST['submit'])){
-    $data = array(
+    $data = [
         'фамилия' => $_POST['фамилия'],
         'имя' => $_POST['имя'],
         'возраст' => $_POST['возраст']
-    );
+    ];
 
     $_SESSION['userData'] = $data;
     header('Location: Output.php');
