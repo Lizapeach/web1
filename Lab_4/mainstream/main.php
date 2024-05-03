@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="form">
-    <form action="Save.php" method="post">
+    <form action="save.php" method="post">
         <label for="email">Email</label>
         <input type="email" name="email" required>
 
@@ -40,7 +40,30 @@
         </thead>
         <tbody>
         <?php
+        require __DIR__ . '/vendor/autoload.php';
 
+        $client = new \Google_Client();
+        $client->setApplicationName('table');
+        $client->setScopes(['https://www.googleapis.com/auth/spreadsheets']);
+        $client->setAccessType('offline');
+        $path = __DIR__ . '/key.json';
+        $client->setAuthConfig($path);
+
+        $service = new Google\Service\Sheets($client);
+
+        $spreadsheetId = '10hsB_y7mjsbcJsoEG38YmpPSoCJFbQkii0hmgyVjGuA';
+
+        $response = $service->spreadsheets_values->get($spreadsheetId, 'Лист1');
+        $values = $response->getValues();
+
+        if (!empty($values)) {
+            foreach ($values as $row) {
+                $cells = array_map(function($value) {
+                    return "<td>$value</td>";
+                }, $row);
+                echo "<tr>" . join('', $cells) . "</tr>";
+            }
+        }
         ?>
         </tbody>
     </table>
