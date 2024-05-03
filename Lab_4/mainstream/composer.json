@@ -1,0 +1,7 @@
+{
+    "name": "lizak/mainstream",
+    "type": "project",
+    "require": {
+        "google/apiclient": "^2.16"
+    }
+}
